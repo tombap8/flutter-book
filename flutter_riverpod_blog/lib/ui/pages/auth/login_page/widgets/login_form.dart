@@ -38,12 +38,11 @@ class LoginForm extends ConsumerWidget {
           const SizedBox(height: largeGap),
           CustomElevatedButton(
             text: "로그인",
-            funPageRoute: () async {
+            funPageRoute: () {
               if (_formKey.currentState!.validate()) {
                 LoginReqDTO loginReqDTO = LoginReqDTO(username: _username.text, password: _password.text);
-                await ref.read(userProvider).login(loginReqDTO);
+                ref.read(userProvider).login(loginReqDTO);
               }
-              Navigator.popAndPushNamed(context, Move.postListPage);
             },
           ),
         ],

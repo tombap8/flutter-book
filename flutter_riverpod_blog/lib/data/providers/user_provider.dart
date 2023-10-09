@@ -58,6 +58,7 @@ class UserProvider {
       Navigator.popAndPushNamed(mContext!, Move.postListPage);
     } else {
       // 실패 시 스낵바
+      Logger().d("스낵바다");
       ScaffoldMessenger.of(mContext!).showSnackBar(SnackBar(content: Text("로그인 실패 : ${responseDTO.msg}")));
     }
   }

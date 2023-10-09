@@ -46,6 +46,7 @@ class PostDetailPageViewModel extends StateNotifier<PostDetailPageModel?> {
       await ref.read(postListPageProvider.notifier).notifyUpdate(responseDTO.data);
 
       state = PostDetailPageModel(post: responseDTO.data);
+      Navigator.pop(mContext!);
     }
   }
 }

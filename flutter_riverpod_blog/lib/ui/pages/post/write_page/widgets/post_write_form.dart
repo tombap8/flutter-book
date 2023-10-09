@@ -40,7 +40,6 @@ class PostWriteForm extends ConsumerWidget {
               if (_formKey.currentState!.validate()) {
                 PostSaveReqDTO reqDTO = PostSaveReqDTO(title: _title.text, content: _content.text);
                 await ref.read(postListPageProvider.notifier).notifyAdd(reqDTO);
-                Navigator.pop(context, Move.postListPage);
               }
             },
           ),

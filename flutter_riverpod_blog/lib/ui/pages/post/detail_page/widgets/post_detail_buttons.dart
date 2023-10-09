@@ -18,7 +18,6 @@ class PostDetailButtons extends ConsumerWidget {
         IconButton(
           onPressed: () async {
             await ref.read(postListPageProvider.notifier).notifyRemove(post.id);
-            Navigator.pop(context);
           },
           icon: const Icon(CupertinoIcons.delete),
         ),

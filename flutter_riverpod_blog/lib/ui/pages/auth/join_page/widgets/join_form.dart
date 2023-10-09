@@ -43,13 +43,15 @@ class JoinForm extends ConsumerWidget {
             controller: _password,
           ),
           const SizedBox(height: largeGap),
-          CustomElevatedButton(text: "회원가입", funPageRoute: () {
-            if (_formKey.currentState!.validate()) {
-              JoinReqDTO reqDTO = JoinReqDTO(username: _username.text, password: _password.text, email: _email.text);
-              ref.read(userProvider).join(reqDTO);
-              Logger().d("회원가입 성공");
-            }
-          }),
+          CustomElevatedButton(
+              text: "회원가입",
+              funPageRoute: () {
+                if (_formKey.currentState!.validate()) {
+                  JoinReqDTO reqDTO = JoinReqDTO(username: _username.text, password: _password.text, email: _email.text);
+                  ref.read(userProvider).join(reqDTO);
+                  Logger().d("회원가입 성공");
+                }
+              }),
         ],
       ),
     );

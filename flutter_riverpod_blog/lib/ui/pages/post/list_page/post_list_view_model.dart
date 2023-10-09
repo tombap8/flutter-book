@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blog/_core/constants/move.dart';
 import 'package:flutter_blog/data/dtos/post_request.dart';
 import 'package:flutter_blog/data/dtos/response_dto.dart';
 import 'package:flutter_blog/data/models/post.dart';
@@ -47,6 +48,7 @@ class PostListPageViewModel extends StateNotifier<PostListPageModel?> {
       List<Post> newPosts = [newPost, ...posts];
 
       state = PostListPageModel(posts: newPosts);
+      Navigator.pop(mContext!, Move.postListPage);
     }
   }
 
@@ -68,6 +70,7 @@ class PostListPageViewModel extends StateNotifier<PostListPageModel?> {
       List<Post> newPosts = posts.where((e) => e.id != id).toList();
 
       state = PostListPageModel(posts: newPosts);
+      Navigator.pop(mContext!);
     }
   }
 }
