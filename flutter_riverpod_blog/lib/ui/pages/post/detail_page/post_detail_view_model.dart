@@ -14,19 +14,19 @@ final postDetailPageProvider = StateNotifierProvider.family.autoDispose<PostDeta
 });
 
 // 창고 데이터
-class PostDetailPageModel{
+class PostDetailPageModel {
   Post post;
   PostDetailPageModel({required this.post});
 }
 
 // 창고
-class PostDetailPageViewModel extends StateNotifier<PostDetailPageModel?>{
+class PostDetailPageViewModel extends StateNotifier<PostDetailPageModel?> {
   final mContext = navigatorKey.currentContext;
   final Ref ref;
 
   PostDetailPageViewModel(this.ref, super.state);
 
-  void notifyInit(int id) async {
+  Future<void> notifyInit(int id) async {
     Logger().d("notifyInit");
 
     SessionUser sessionUser = ref.read(sessionProvider);
@@ -35,20 +35,17 @@ class PostDetailPageViewModel extends StateNotifier<PostDetailPageModel?>{
     state = PostDetailPageModel(post: responseDTO.data);
   }
 
-  void notifyUpdate(int postId, PostUpdateReqDTO reqDTO) async {
+  Future<void> notifyUpdate(int postId, PostUpdateReqDTO reqDTO) async {
     Logger().d("notifyUpdate");
 
     SessionUser sessionUser = ref.read(sessionProvider);
     ResponseDTO responseDTO = await PostRepository().updatePost(sessionUser.jwt!, postId, reqDTO);
     if (responseDTO.code != 1) {
       ScaffoldMessenger.of(mContext!).showSnackBar(SnackBar(content: Text("게시물 수정 실패 : ${responseDTO.msg}")));
-
     } else {
-      ref.read(postListPageProvider.notifier).notifyUpdate(responseDTO.data);
+      await ref.read(postListPageProvider.notifier).notifyUpdate(responseDTO.data);
 
       state = PostDetailPageModel(post: responseDTO.data);
     }
   }
-
-
 }

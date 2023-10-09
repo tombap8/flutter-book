@@ -11,8 +11,7 @@ void main() async {
 
 Future<void> fetchJoin_test() async {
   // given
-  JoinReqDTO requestDTO =
-      JoinReqDTO(username: "meta", password: "1234", email: "meta@nate.com");
+  JoinReqDTO requestDTO = JoinReqDTO(username: "meta", password: "1234", email: "meta@nate.com");
 
   // when
   try {
@@ -33,7 +32,7 @@ Future<void> fetchLogin_test() async {
   LoginReqDTO requestDTO = LoginReqDTO(username: "ssar", password: "1234");
 
   // when
-  try{
+  try {
     // 1. 통신 시작
     Response response = await dio.post("/login", data: requestDTO.toJson());
 
@@ -43,7 +42,7 @@ Future<void> fetchLogin_test() async {
 
     // 3. 토큰 받기
     final authorization = response.headers["authorization"];
-    if(authorization != null){
+    if (authorization != null) {
       responseDTO.token = authorization.first;
     }
 
@@ -51,7 +50,7 @@ Future<void> fetchLogin_test() async {
     Logger().d(responseDTO.code);
     Logger().d(responseDTO.msg);
     Logger().d(responseDTO.token);
-  }catch(e){
+  } catch (e) {
     Logger().d("통신 실패");
   }
 }

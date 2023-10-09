@@ -11,13 +11,13 @@ void main() async {
 
 Future<void> fetchPostList_test() async {
   // given
-  String jwt = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb3PthqDtgbAiLCJpZCI6MSwiZXhwIjoxNjg5ODY2MDY1fQ.tvmkZeCUToHiTOZQjKUBN6d-00L4GvmpplJirwCp_XB2jsaLIp9UTbJrwfWHPWqTqU0iRnvMxp30S4PDhDUI_A';
-
+  // JWT 토큰은 만료될 수 있기 때문에, PostMan으로 요청한 뒤 Authorization 응답 헤더값을 사용하세요.
+  String jwt =
+      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb3PthqDtgbAiLCJpZCI6MSwiZXhwIjoxNjg5ODY2MDY1fQ.tvmkZeCUToHiTOZQjKUBN6d-00L4GvmpplJirwCp_XB2jsaLIp9UTbJrwfWHPWqTqU0iRnvMxp30S4PDhDUI_A';
 
   try {
     // 통신
-    Response response = await dio.get("/post",
-        options: Options(headers: {"Authorization": "$jwt"}));
+    Response response = await dio.get("/post", options: Options(headers: {"Authorization": "$jwt"}));
 
     // 응답 받은 데이터 파싱
     ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
@@ -28,7 +28,6 @@ Future<void> fetchPostList_test() async {
     // then
     Logger().d(responseDTO.code);
     Logger().d(responseDTO.msg);
-
   } catch (e) {
     Logger().d("통신 실패");
   }
@@ -36,39 +35,36 @@ Future<void> fetchPostList_test() async {
 
 Future<void> fetchPost_test() async {
   // given
-  String jwt = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb3PthqDtgbAiLCJpZCI6MSwiZXhwIjoxNjg5ODY2MDY1fQ.tvmkZeCUToHiTOZQjKUBN6d-00L4GvmpplJirwCp_XB2jsaLIp9UTbJrwfWHPWqTqU0iRnvMxp30S4PDhDUI_A';
+  // JWT 토큰은 만료될 수 있기 때문에, PostMan으로 요청한 뒤 Authorization 응답 헤더값을 사용하세요.
+  String jwt =
+      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb3PthqDtgbAiLCJpZCI6MSwiZXhwIjoxNjg5ODY2MDY1fQ.tvmkZeCUToHiTOZQjKUBN6d-00L4GvmpplJirwCp_XB2jsaLIp9UTbJrwfWHPWqTqU0iRnvMxp30S4PDhDUI_A';
   int id = 1;
 
   // when
   try {
     // 통신
-    Response response = await dio.get("/post/$id",
-        options: Options(headers: {"Authorization": "$jwt"}));
+    Response response = await dio.get("/post/$id", options: Options(headers: {"Authorization": "$jwt"}));
 
     // 응답 받은 데이터 파싱
     ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
     responseDTO.data = Post.fromJson(responseDTO.data);
 
-
     Logger().d(responseDTO.code);
     Logger().d(responseDTO.msg);
-
   } catch (e) {
     Logger().d("통신 실패");
   }
 }
 
 Future<void> savePost_test() async {
-  String jwt = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb3PthqDtgbAiLCJpZCI6MSwiZXhwIjoxNjg5ODY2MDY1fQ.tvmkZeCUToHiTOZQjKUBN6d-00L4GvmpplJirwCp_XB2jsaLIp9UTbJrwfWHPWqTqU0iRnvMxp30S4PDhDUI_A';
+  // JWT 토큰은 만료될 수 있기 때문에, PostMan으로 요청한 뒤 Authorization 응답 헤더값을 사용하세요.
+  String jwt =
+      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb3PthqDtgbAiLCJpZCI6MSwiZXhwIjoxNjg5ODY2MDY1fQ.tvmkZeCUToHiTOZQjKUBN6d-00L4GvmpplJirwCp_XB2jsaLIp9UTbJrwfWHPWqTqU0iRnvMxp30S4PDhDUI_A';
   PostSaveReqDTO postSaveReqDTO = PostSaveReqDTO(title: "제목", content: "내용");
 
   try {
     // 통신
-    Response response = await dio.post(
-        "/post",
-        options: Options(headers: {"Authorization": "$jwt"}),
-        data: postSaveReqDTO.toJson()
-    );
+    Response response = await dio.post("/post", options: Options(headers: {"Authorization": "$jwt"}), data: postSaveReqDTO.toJson());
     // 응답 받은 데이터 파싱
     ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
     responseDTO.data = Post.fromJson(responseDTO.data);
@@ -80,9 +76,10 @@ Future<void> savePost_test() async {
   }
 }
 
-
 Future<void> updatePost_test() async {
-  String jwt = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb3PthqDtgbAiLCJpZCI6MSwiZXhwIjoxNjg5ODgwNzEzfQ.wRMLsbl1lBjFjNmUPDo5MWtAZ4ukzVDQy1B5A-qhwk54vSycgy3EhzvXgb4WtZImxV_YcwddLDS5iFPBZuk2iA';
+  // JWT 토큰은 만료될 수 있기 때문에, PostMan으로 요청한 뒤 Authorization 응답 헤더값을 사용하세요.
+  String jwt =
+      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb3PthqDtgbAiLCJpZCI6MSwiZXhwIjoxNjg5ODgwNzEzfQ.wRMLsbl1lBjFjNmUPDo5MWtAZ4ukzVDQy1B5A-qhwk54vSycgy3EhzvXgb4WtZImxV_YcwddLDS5iFPBZuk2iA';
   int id = 1;
   PostUpdateReqDTO requestDTO = PostUpdateReqDTO(title: "수정제목", content: "수정내용");
 
@@ -106,13 +103,14 @@ Future<void> updatePost_test() async {
 }
 
 Future<void> deletePost_test() async {
-  String jwt = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb3PthqDtgbAiLCJpZCI6MSwiZXhwIjoxNjg5ODgxMDU2fQ.Vd0SepViCFoVaEv_Zv73AI1M2Z87t0TZSO--FYYUJqqffWS4rgti_2ebcnJtmhCdJQLdaRBLhoqvbuVDqu8iZA';
+  // JWT 토큰은 만료될 수 있기 때문에, PostMan으로 요청한 뒤 Authorization 응답 헤더값을 사용하세요.
+  String jwt =
+      'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjb3PthqDtgbAiLCJpZCI6MSwiZXhwIjoxNjg5ODgxMDU2fQ.Vd0SepViCFoVaEv_Zv73AI1M2Z87t0TZSO--FYYUJqqffWS4rgti_2ebcnJtmhCdJQLdaRBLhoqvbuVDqu8iZA';
   int id = 2;
 
   try {
     // 통신
-    Response response = await dio.delete("/post/$id",
-        options: Options(headers: {"Authorization": "$jwt"}));
+    Response response = await dio.delete("/post/$id", options: Options(headers: {"Authorization": "$jwt"}));
     // 응답 받은 데이터 파싱
     ResponseDTO responseDTO = ResponseDTO.fromJson(response.data);
 

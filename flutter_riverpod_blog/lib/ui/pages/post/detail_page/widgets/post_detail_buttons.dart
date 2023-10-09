@@ -17,15 +17,14 @@ class PostDetailButtons extends ConsumerWidget {
       children: [
         IconButton(
           onPressed: () async {
-            ref.read(postListPageProvider.notifier).notifyRemove(post.id);
+            await ref.read(postListPageProvider.notifier).notifyRemove(post.id);
             Navigator.pop(context);
           },
           icon: const Icon(CupertinoIcons.delete),
         ),
         IconButton(
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (_) => PostUpdatePage(post)));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => PostUpdatePage(post)));
           },
           icon: const Icon(CupertinoIcons.pen),
         ),

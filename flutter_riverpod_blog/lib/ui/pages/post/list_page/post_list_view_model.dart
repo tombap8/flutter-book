@@ -13,34 +13,33 @@ final postListPageProvider = StateNotifierProvider<PostListPageViewModel, PostLi
 });
 
 // 창고 데이터
-class PostListPageModel{
+class PostListPageModel {
   List<Post> posts;
   PostListPageModel({required this.posts});
 }
 
 // 창고
-class PostListPageViewModel extends StateNotifier<PostListPageModel?>{
+class PostListPageViewModel extends StateNotifier<PostListPageModel?> {
   final mContext = navigatorKey.currentContext;
   final Ref ref;
 
   PostListPageViewModel(this.ref, super.state);
 
-  void notifyInit() async {
+  Future<void> notifyInit() async {
     Logger().d("notifyInit");
     SessionUser sessionUser = ref.read(sessionProvider);
     ResponseDTO responseDTO = await PostRepository().fetchPostList(sessionUser.jwt!);
     state = PostListPageModel(posts: responseDTO.data);
   }
 
-  void notifyAdd(PostSaveReqDTO reqDTO) async {
+  Future<void> notifyAdd(PostSaveReqDTO reqDTO) async {
     Logger().d("notifyAdd");
 
     SessionUser sessionUser = ref.read(sessionProvider);
     ResponseDTO responseDTO = await PostRepository().savePost(sessionUser.jwt!, reqDTO);
 
-    if(responseDTO.code != 1) {
+    if (responseDTO.code != 1) {
       ScaffoldMessenger.of(mContext!).showSnackBar(SnackBar(content: Text("게시물 작성 실패 : ${responseDTO.msg}")));
-
     } else {
       Post newPost = responseDTO.data;
 
@@ -51,23 +50,19 @@ class PostListPageViewModel extends StateNotifier<PostListPageModel?>{
     }
   }
 
-  void notifyUpdate(Post post) async {
-
+  Future<void> notifyUpdate(Post post) async {
     List<Post> posts = state!.posts;
     List<Post> newPosts = posts.map((e) => e.id == post.id ? post : e).toList();
 
     state = PostListPageModel(posts: newPosts);
-
   }
 
-  void notifyRemove(int id) async {
-
+  Future<void> notifyRemove(int id) async {
     SessionUser sessionUser = ref.read(sessionProvider);
     ResponseDTO responseDTO = await PostRepository().fetchDelete(sessionUser.jwt!, id);
 
-    if(responseDTO.code != 1) {
+    if (responseDTO.code != 1) {
       ScaffoldMessenger.of(mContext!).showSnackBar(SnackBar(content: Text("게시물 삭제 실패 : ${responseDTO.msg}")));
-
     } else {
       List<Post> posts = state!.posts;
       List<Post> newPosts = posts.where((e) => e.id != id).toList();
@@ -75,5 +70,4 @@ class PostListPageViewModel extends StateNotifier<PostListPageModel?>{
       state = PostListPageModel(posts: newPosts);
     }
   }
-
 }

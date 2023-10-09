@@ -8,6 +8,7 @@ import 'package:flutter_blog/ui/widgets/custom_auth_text_form_field.dart';
 import 'package:flutter_blog/ui/widgets/custom_elavated_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// Ref를 사용하려면 StatelessWidget에서 ConsumerWidget으로 변경하여야 한다.
 class LoginForm extends ConsumerWidget {
   final _formKey = GlobalKey<FormState>();
   final _username = TextEditingController();
@@ -37,13 +38,12 @@ class LoginForm extends ConsumerWidget {
           const SizedBox(height: largeGap),
           CustomElevatedButton(
             text: "로그인",
-            funPageRoute: () {
-              Navigator.popAndPushNamed(context, Move.postListPage);
+            funPageRoute: () async {
               if (_formKey.currentState!.validate()) {
-                LoginReqDTO loginReqDTO = LoginReqDTO(
-                    username: _username.text, password: _password.text);
-                ref.read(userProvider).login(loginReqDTO);
+                LoginReqDTO loginReqDTO = LoginReqDTO(username: _username.text, password: _password.text);
+                await ref.read(userProvider).login(loginReqDTO);
               }
+              Navigator.popAndPushNamed(context, Move.postListPage);
             },
           ),
         ],

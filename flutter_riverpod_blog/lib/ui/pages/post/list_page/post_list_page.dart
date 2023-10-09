@@ -21,7 +21,7 @@ class PostListPage extends ConsumerWidget {
       body: RefreshIndicator(
         key: refreshKey,
         onRefresh: () async {
-          ref.read(postListPageProvider.notifier).notifyInit();
+          await ref.read(postListPageProvider.notifier).notifyInit();
         },
         child: PostListBody(),
       ),

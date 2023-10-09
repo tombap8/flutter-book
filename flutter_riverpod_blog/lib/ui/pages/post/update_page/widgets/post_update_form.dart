@@ -43,7 +43,7 @@ class PostUpdateForm extends ConsumerWidget {
               if (_formKey.currentState!.validate()) {
                 PostUpdateReqDTO reqDTO = PostUpdateReqDTO(title: _title.text, content: _content.text);
 
-                ref.read(postDetailPageProvider(post.id).notifier).notifyUpdate(post.id, reqDTO);
+                await ref.read(postDetailPageProvider(post.id).notifier).notifyUpdate(post.id, reqDTO);
 
                 Navigator.pop(context);
               }

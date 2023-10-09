@@ -39,7 +39,7 @@ class PostWriteForm extends ConsumerWidget {
             funPageRoute: () async {
               if (_formKey.currentState!.validate()) {
                 PostSaveReqDTO reqDTO = PostSaveReqDTO(title: _title.text, content: _content.text);
-                ref.read(postListPageProvider.notifier).notifyAdd(reqDTO);
+                await ref.read(postListPageProvider.notifier).notifyAdd(reqDTO);
                 Navigator.pop(context, Move.postListPage);
               }
             },

@@ -45,10 +45,6 @@ class ProfilePage extends StatelessWidget {
   }
 
   AppBar _buildProfileAppBar() {
-    return AppBar(
-      leading: Icon(Icons.arrow_back_ios),
-      title: Text("Profile"),
-      centerTitle: true,
-    );
+    return AppBar();
   }
 }
