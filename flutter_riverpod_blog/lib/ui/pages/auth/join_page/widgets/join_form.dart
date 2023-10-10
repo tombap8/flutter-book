@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blog/_core/constants/size.dart';
 import 'package:flutter_blog/_core/utils/validator_util.dart';
 import 'package:flutter_blog/data/dtos/user_request.dart';
-import 'package:flutter_blog/data/providers/user_provider.dart';
+import 'package:flutter_blog/data/providers/session_provider.dart';
 import 'package:flutter_blog/ui/widgets/custom_auth_text_form_field.dart';
 import 'package:flutter_blog/ui/widgets/custom_elavated_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,8 +47,11 @@ class JoinForm extends ConsumerWidget {
               text: "회원가입",
               funPageRoute: () {
                 if (_formKey.currentState!.validate()) {
-                  JoinReqDTO reqDTO = JoinReqDTO(username: _username.text, password: _password.text, email: _email.text);
-                  ref.read(userProvider).join(reqDTO);
+                  JoinReqDTO reqDTO = JoinReqDTO(
+                      username: _username.text,
+                      password: _password.text,
+                      email: _email.text);
+                  ref.read(sessionProvider).join(reqDTO);
                   Logger().d("회원가입 성공");
                 }
               }),
