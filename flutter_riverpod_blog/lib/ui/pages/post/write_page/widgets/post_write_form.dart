@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blog/_core/constants/move.dart';
 import 'package:flutter_blog/_core/constants/size.dart';
 import 'package:flutter_blog/_core/utils/validator_util.dart';
 import 'package:flutter_blog/data/dtos/post_request.dart';
@@ -38,8 +37,9 @@ class PostWriteForm extends ConsumerWidget {
             text: "글쓰기",
             funPageRoute: () async {
               if (_formKey.currentState!.validate()) {
-                PostSaveReqDTO reqDTO = PostSaveReqDTO(title: _title.text, content: _content.text);
-                await ref.read(postListPageProvider.notifier).notifyAdd(reqDTO);
+                PostSaveReqDTO reqDTO =
+                    PostSaveReqDTO(title: _title.text, content: _content.text);
+                await ref.read(postListProvider.notifier).notifyAdd(reqDTO);
               }
             },
           ),

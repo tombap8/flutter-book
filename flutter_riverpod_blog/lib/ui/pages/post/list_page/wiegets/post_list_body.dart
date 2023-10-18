@@ -10,7 +10,7 @@ class PostListBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    PostListPageModel? model = ref.watch(postListPageProvider);
+    PostListModel? model = ref.watch(postListProvider);
     List<Post> posts = [];
 
     if (model != null) {
@@ -24,7 +24,9 @@ class PostListBody extends ConsumerWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => PostDetailPage(posts[index].id)), // 코드 추가 (파라메터)
+              MaterialPageRoute(
+                  builder: (_) =>
+                      PostDetailPage(posts[index].id)), // 코드 추가 (파라메터)
             );
           },
           child: PostListItem(posts[index]),

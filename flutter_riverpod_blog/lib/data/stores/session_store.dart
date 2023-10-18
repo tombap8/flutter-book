@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blog/_core/constants/http.dart';
 import 'package:flutter_blog/_core/constants/move.dart';
@@ -10,18 +9,23 @@ import 'package:flutter_blog/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
-final sessionProvider = Provider<SessionUser>((ref) {
-  return SessionUser();
+// 1. 창고 관리자
+final sessionProvider = Provider<SessionStore>((ref) {
+  return SessionStore();
 });
 
+// 2. 창고 데이터
 class SessionUser {
-  final mContext = navigatorKey.currentContext;
-
   User? user;
   String? jwt;
   bool? isLogin;
 
   SessionUser();
+}
+
+// 3. 창고
+class SessionStore extends SessionUser {
+  final mContext = navigatorKey.currentContext;
 
   // 로그인
   Future<void> login(LoginReqDTO loginReqDTO) async {
